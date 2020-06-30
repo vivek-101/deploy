@@ -36,14 +36,18 @@ cat_names = full_pipeline.named_transformers_.cat.get_feature_names(dummy)
 
 def feature_ext(sample):
     int_cols = {
-        'tenure':int,
-        'MonthlyCharges':float,
-        'TotalCharges':float
+        'tenure': int,
+        'MonthlyCharges': float,
+        'TotalCharges': float
     }
-    sample.columns = telecom.columns
+    val = ['customerID', 'tenure', 'PhoneService', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges',
+           'TotalCharges', 'Churn', 'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'MultipleLines',
+           'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV',
+           'StreamingMovies']
+    sample.columns = val
     sample = sample.astype(int_cols)
     testing = fitting.transform(sample)
-    testing = pd.DataFrame(testing,columns=list(num_attr)+ordinal_attr+list(cat_names))
+    testing = pd.DataFrame(testing, columns=list(num_attr)+ordinal_attr+list(cat_names))
     return testing
 
 
